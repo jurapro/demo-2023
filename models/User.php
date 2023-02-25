@@ -23,6 +23,9 @@ use yii\web\IdentityInterface;
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
+    public $password_repeat;
+    public $rules;
+
     /**
      * {@inheritdoc}
      */
@@ -37,12 +40,21 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['name', 'surname', 'username', 'email', 'password'], 'required'],
+            [['name', 'surname', 'username', 'email', 'password', 'password_repeat'], 'required'],
+            [['name', 'surname', 'patronymic'], 'match', 'pattern' => '/^[а-яА-Я -]*$/u',
+                'message' => 'Разрешены только кириллица, пробел или тире'],
             [['role_id'], 'integer'],
             [['name', 'surname', 'patronymic', 'username', 'email', 'password'], 'string', 'max' => 255],
             [['username'], 'unique'],
+            ['username', 'match', 'pattern' => '/^[a-zA-Z0-9-]*$/i',
+                'message' => 'Разрешены только латиница, цифры или тире'],
             [['email'], 'unique'],
-            [['role_id'], 'exist', 'skipOnError' => true, 'targetClass' => Role::class, 'targetAttribute' => ['role_id' => 'id']],
+            ['password_repeat', 'compare', 'compareAttribute' => 'password'],
+            [['password'], 'string', 'min' => 6],
+            ['rules', 'compare', 'compareValue' => 1,
+                'message' => 'Необходимо принять условия регистрации'],
+            [['role_id'], 'exist', 'skipOnError' => true, 'targetClass' => Role::class,
+                'targetAttribute' => ['role_id' => 'id']],
         ];
     }
 
@@ -59,6 +71,8 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'username' => 'login',
             'email' => 'email',
             'password' => 'password',
+            'password_repeat' => 'password_repeat',
+            'rules' => 'rules',
         ];
     }
 
