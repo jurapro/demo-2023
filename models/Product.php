@@ -54,14 +54,14 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'date' => 'Date',
-            'name' => 'Name',
-            'file' => 'File',
-            'count' => 'Count',
-            'price' => 'Price',
-            'year' => 'Year',
-            'model' => 'Model',
-            'country' => 'Country',
+            'date' => 'Дата',
+            'name' => 'Наименование товара',
+            'file' => 'Фото',
+            'count' => 'Количество',
+            'price' => 'Цена',
+            'year' => 'Год выпуска',
+            'model' => 'Модель',
+            'country' => 'Страна-производитель',
             'category_id' => 'Category ID',
         ];
     }

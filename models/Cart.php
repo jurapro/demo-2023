@@ -47,7 +47,7 @@ class Cart extends \yii\db\ActiveRecord
             'id' => 'ID',
             'user_id' => 'User ID',
             'product_id' => 'Product ID',
-            'count' => 'Count',
+            'count' => 'Количество',
         ];
     }
 
