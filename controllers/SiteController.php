@@ -61,10 +61,12 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex($id_category = null)
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Product::find()->where(['>', 'count', 0]),
+            'query' => $id_category ?
+                Product::find()->where(['>', 'count', 0])->andWhere(['category_id' => $id_category]) :
+                Product::find()->where(['>', 'count', 0]),
             'sort' => [
                 'defaultOrder' => [
                     'date' => SORT_DESC,

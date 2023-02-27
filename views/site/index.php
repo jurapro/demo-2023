@@ -2,8 +2,10 @@
 
 /** @var yii\web\View $this */
 
+use app\models\Category;
 use yii\bootstrap5\Html;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
 use yii\widgets\Pjax;
 
 $this->title = 'Каталог товаров';
@@ -15,6 +17,18 @@ $this->registerJsFile(
 <div class="site-index">
     <h1><?= Html::encode($this->title) ?></h1>
     <div class="info"></div>
+    <?php
+    $items = Category::find()
+        ->select(['name'])
+        ->indexBy('id')
+        ->column();
+    ?>
+    <?= Html::dropDownList('list', null, $items,
+        [
+            'prompt' => 'Выберите категорию',
+            'onchange' => 'getProduct(this.options[this.selectedIndex].value)'
+        ]) ?>
+
     <?php Pjax::begin(['id' => 'cart']) ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

@@ -53,3 +53,10 @@ function byOrder() {
             });
         });
 }
+
+function getProduct(id_category) {
+    $.pjax.reload({
+        url: `/?id_category=${id_category}`,
+        container: '#cart'
+    });
+}
