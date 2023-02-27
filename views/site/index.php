@@ -2,52 +2,43 @@
 
 /** @var yii\web\View $this */
 
-$this->title = 'My Yii Application';
+use yii\bootstrap5\Html;
+use yii\grid\GridView;
+use yii\widgets\Pjax;
+
+$this->title = 'Каталог товаров';
+$this->registerJsFile(
+    '@web/js/main.js',
+    ['depends' => [\yii\web\JqueryAsset::class]]
+);
 ?>
 <div class="site-index">
-
-    <div class="jumbotron text-center bg-transparent">
-        <h1 class="display-4">Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
-        </div>
-
-    </div>
-</div>
+    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="info"></div>
+    <?php Pjax::begin(['id' => 'cart']) ?>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            'date',
+            'name',
+            'price',
+            [
+                'label' => 'Изображение',
+                'format' => 'html',
+                'value' => function ($data) {
+                    return Html::img($data->file, ['width' => 200]);
+                }
+            ],
+            [
+                'label' => 'Добавить в корзину',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    return "<button onclick='addCart($data->id)' class='btn btn-success'>Добавить в корзину</button>";
+                },
+                'visible' => Yii::$app->user->identity
+            ],
+            'count',
+        ],
+    ]); ?>
+    <?php Pjax::end() ?></div>
