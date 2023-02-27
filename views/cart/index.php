@@ -49,4 +49,13 @@ $this->registerJsFile(
         ],
     ]); ?>
     <?php Pjax::end() ?>
+
+    <div class="form-group">
+        <?= Html::input('password', 'password', '', ['class' => 'form-control password']) ?>
+    </div>
+    <?= Html::button('Оформить заказ', [
+        'class' => 'btn btn-success',
+        'onclick'=>'byOrder()'
+    ]) ?>
+
 </div>

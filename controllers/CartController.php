@@ -3,7 +3,10 @@
 namespace app\controllers;
 
 use app\models\Cart;
+use app\models\Order;
 use app\models\Product;
+use app\models\ProductOrder;
+use app\models\Status;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
@@ -43,6 +46,33 @@ class CartController extends Controller
                 ],
             ]
         );
+    }
+
+    public function actionByOrder($password)
+    {
+        if (!Yii::$app->user->identity->validatePassword($password)) {
+            return "Пароль не верный";
+        }
+
+        $order = new Order([
+            'user_id' => Yii::$app->user->getId(),
+            'status_id' => Status::find()->where(['code' => 'new'])->one()->id
+        ]);
+        $order->save();
+
+        $itemInCart = Yii::$app->user->identity->carts;
+
+        foreach ($itemInCart as $item) {
+            $itemInOrder = new ProductOrder([
+                'order_id' => $order->id,
+                'product_id' => $item->product_id,
+                'count' => $item->count,
+                'price' => $item->product->price * $item->count,
+            ]);
+            $itemInOrder->save();
+            $item->delete();
+        }
+        return "Заказ сформирован";
     }
 
     /**
