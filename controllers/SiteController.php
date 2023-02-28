@@ -140,4 +140,11 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => Product::findOne($id),
+        ]);
+    }
 }

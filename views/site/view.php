@@ -1,42 +1,33 @@
 <?php
 
-/** @var yii\web\View $this */
-
-use app\models\Category;
-use yii\bootstrap5\Html;
-use yii\grid\GridView;
-use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\widgets\DetailView;
 use yii\widgets\Pjax;
 
-$this->title = 'Каталог товаров';
+/** @var yii\web\View $this */
+/** @var app\models\Order $model */
+
+$this->title = "Карточка товара: " . $model->name;
+$this->params['breadcrumbs'][] = $this->title;
+\yii\web\YiiAsset::register($this);
 $this->registerJsFile(
     '@web/js/main.js',
     ['depends' => [\yii\web\JqueryAsset::class]]
 );
 ?>
-<div class="site-index">
+<div class="order-view">
     <h1><?= Html::encode($this->title) ?></h1>
     <div class="info"></div>
-    <?php
-    $items = Category::find()
-        ->select(['name'])
-        ->indexBy('id')
-        ->column();
-    ?>
-    <?= Html::dropDownList('list', null, $items,
-        [
-            'prompt' => 'Выберите категорию',
-            'onchange' => 'getProduct(this.options[this.selectedIndex].value)'
-        ]) ?>
-
     <?php Pjax::begin(['id' => 'cart']) ?>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
             'date',
             'name',
             'price',
+            'year',
+            'model',
+            'country',
             [
                 'label' => 'Изображение',
                 'format' => 'html',
@@ -53,13 +44,7 @@ $this->registerJsFile(
                 'visible' => Yii::$app->user->identity
             ],
             'count',
-            [
-                'label' => '',
-                'format' => 'html',
-                'value' => function ($data) {
-                    return Html::a('Подробнее', ['site/view', 'id' => $data->id]);
-                }
-            ],
         ],
-    ]); ?>
-    <?php Pjax::end() ?></div>
+    ]) ?>
+    <?php Pjax::end() ?>
+</div>
