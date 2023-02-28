@@ -46,6 +46,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             ['label' => 'Регистрация', 'url' => ['/user/create'], 'visible' => Yii::$app->user->isGuest],
             ['label' => 'Корзина', 'url' => ['/cart/index'], 'visible' => !Yii::$app->user->isGuest],
             ['label' => 'Ордера', 'url' => ['/order/index'], 'visible' => !Yii::$app->user->isGuest],
+            ['label' => 'Административная панель', 'url' => ['/admin'],
+                'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()],
             Yii::$app->user->isGuest
                 ? ['label' => 'Вход', 'url' => ['/site/login']]
                 : '<li class="nav-item">'

@@ -122,6 +122,11 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return User::findOne(['username' => $username]);
     }
 
+    public function isAdmin()
+    {
+        return $this->role->code === 'admin';
+    }
+
     public static function findIdentity($id)
     {
         return static::findOne($id);
