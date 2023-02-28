@@ -24,6 +24,7 @@ use Yii;
  */
 class Product extends \yii\db\ActiveRecord
 {
+    public $imageFile;
     /**
      * {@inheritdoc}
      */
@@ -44,6 +45,7 @@ class Product extends \yii\db\ActiveRecord
             [['price'], 'number'],
             [['name', 'file', 'model', 'country'], 'string', 'max' => 255],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
+            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
         ];
     }
 
@@ -64,6 +66,18 @@ class Product extends \yii\db\ActiveRecord
             'country' => 'Страна-производитель',
             'category_id' => 'Category ID',
         ];
+    }
+
+    public function upload()
+    {
+        if ($this->validate()) {
+            $fileName = 'uploads/' . $this->imageFile->baseName . '.' . $this->imageFile->extension;
+            $this->imageFile->saveAs($fileName);
+            $this->file = '/' . $fileName;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

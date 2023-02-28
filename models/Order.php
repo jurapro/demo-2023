@@ -56,8 +56,8 @@ class Order extends \yii\db\ActiveRecord
             'id' => 'ID',
             'date' => 'Date',
             'user_id' => 'User ID',
-            'status_id' => 'Status ID',
-            'rejection_reason' => 'Rejection Reason',
+            'status_id' => 'Статус заказа',
+            'rejection_reason' => 'Причина отказа',
         ];
     }
 
