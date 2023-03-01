@@ -14,7 +14,8 @@ use yii\grid\GridView;
 
 $this->title = 'Заказы';
 $this->params['breadcrumbs'][] = $this->title;
-echo Html::a('Управление категориями', ['category/index']);
+echo Html::a('Управление категориями', ['category/index'], ['class' => 'nav-link']);
+echo Html::a('Управление товарами', ['product/index'], ['class' => 'nav-link']);
 ?>
 <div class="order-index">
     <h1><?= Html::encode($this->title) ?></h1>

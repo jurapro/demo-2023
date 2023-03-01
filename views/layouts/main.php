@@ -41,8 +41,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         'options' => ['class' => 'navbar-nav'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'О нас', 'url' => ['/site/about']],
+            ['label' => 'Где нас найти?', 'url' => ['/site/contact']],
             ['label' => 'Регистрация', 'url' => ['/user/create'], 'visible' => Yii::$app->user->isGuest],
             ['label' => 'Корзина', 'url' => ['/cart/index'], 'visible' => !Yii::$app->user->isGuest],
             ['label' => 'Ордера', 'url' => ['/order/index'], 'visible' => !Yii::$app->user->isGuest],
