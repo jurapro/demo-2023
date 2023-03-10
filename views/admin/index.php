@@ -2,6 +2,7 @@
 
 use app\models\Order;
 use app\models\Status;
+use yii\bootstrap5\Nav;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -14,8 +15,13 @@ use yii\grid\GridView;
 
 $this->title = 'Заказы';
 $this->params['breadcrumbs'][] = $this->title;
-echo Html::a('Управление категориями', ['category/index'], ['class' => 'nav-link']);
-echo Html::a('Управление товарами', ['product/index'], ['class' => 'nav-link']);
+echo Nav::widget([
+    'options' => ['class' => 'navbar navbar-expand-lg navbar-light bg-light'],
+    'items' => [
+        ['label' => 'Управление категориями', 'url' => ['category/index']],
+        ['label' => 'Управление товарами', 'url' => ['product/index']],
+    ]
+]);
 ?>
 <div class="order-index">
     <h1><?= Html::encode($this->title) ?></h1>
