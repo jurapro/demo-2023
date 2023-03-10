@@ -4,6 +4,7 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
+    'name'=>'Copy Master',
     'id' => 'basic',
     'language' => 'ru-RU',
     'basePath' => dirname(__DIR__),

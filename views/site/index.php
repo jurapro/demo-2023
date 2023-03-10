@@ -26,7 +26,8 @@ $this->registerJsFile(
     <?= Html::dropDownList('list', null, $items,
         [
             'prompt' => 'Выберите категорию',
-            'onchange' => 'getProduct(this.options[this.selectedIndex].value)'
+            'onchange' => 'getProduct(this.options[this.selectedIndex].value)',
+            'class'=>'form-select'
         ]) ?>
 
     <?php Pjax::begin(['id' => 'cart']) ?>
