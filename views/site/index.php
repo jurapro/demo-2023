@@ -16,7 +16,7 @@ $this->registerJsFile(
 ?>
 <div class="site-index">
     <h1><?= Html::encode($this->title) ?></h1>
-    <div class="info"></div>
+    <div class="info alert alert-primary"></div>
     <?php
     $items = Category::find()
         ->select(['name'])

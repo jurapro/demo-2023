@@ -7,10 +7,7 @@ function addCart(id_product) {
             $.pjax.reload({
                 container: '#cart'
             });
-            $(".info").text(msg);
-            setTimeout(() => {
-                $(".info").text('');
-            }, 1000);
+            $('.info').html(msg).fadeIn().animate({opacity: 1.0}, 3000).fadeOut("slow");
         });
 }
 
@@ -23,20 +20,14 @@ function removeCart(id_product) {
             $.pjax.reload({
                 container: '#cart'
             });
-            $(".info").text(msg);
-            setTimeout(() => {
-                $(".info").text('');
-            }, 1000);
+            $('.info').html(msg).fadeIn().animate({opacity: 1.0}, 3000).fadeOut("slow");
         });
 }
 
 function byOrder() {
     const password = $(".password");
     if (!password.val()) {
-        $(".info").text("Укажите пароль");
-        setTimeout(() => {
-            $(".info").text('');
-        }, 1000);
+        $('.info').html("Укажите пароль").fadeIn().animate({opacity: 1.0}, 3000).fadeOut("slow");
         return;
     }
     $.ajax({
@@ -44,10 +35,7 @@ function byOrder() {
         url: `/cart/by-order?password=${password.val()}`,
     })
         .done(function (msg) {
-            $(".info").text(msg);
-            setTimeout(() => {
-                $(".info").text('');
-            }, 1000);
+            $('.info').html(msg).fadeIn().animate({opacity: 1.0}, 3000).fadeOut("slow");
             $.pjax.reload({
                 container: '#cart'
             });

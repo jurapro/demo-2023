@@ -22,7 +22,7 @@ $this->registerJsFile(
 <div class="cart-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <div class="info"></div>
+    <div class="info alert alert-primary"></div>
     <?php Pjax::begin(['id' => 'cart']) ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
